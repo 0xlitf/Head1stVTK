@@ -15,11 +15,14 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(VTK_DIR "C:/PCL 1.13.1/3rdParty/VTK")
 set(ITK_DIR "C:/envs/ITK-5.4.0-lib")
 set(ITK_CMAKE_DIR "C:/envs/ITK-5.4.0-lib/lib/cmake/ITK-5.4")
 
 set(CMAKE_PREFIX_PATH
     ${CMAKE_PREFIX_PATH}
+    ${VTK_DIR}
+#    ${VTK_CMAKE_DIR}
     ${ITK_CMAKE_DIR}
 )
 
