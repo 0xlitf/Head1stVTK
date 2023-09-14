@@ -1,0 +1,7 @@
+[requires]
+fmt/10.1.1
+robin-hood-hashing/3.11.5
+
+[generators]
+CMakeDeps
+CMakeToolchain
