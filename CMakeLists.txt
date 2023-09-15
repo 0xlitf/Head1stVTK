@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.27.4)
 
 get_filename_component(current_dir "${CMAKE_CURRENT_SOURCE_DIR}" NAME)
 string(REPLACE " " "" current_dir "${current_dir}")

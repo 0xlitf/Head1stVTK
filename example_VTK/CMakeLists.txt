@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.27.4)
 
 get_filename_component(current_dir "${CMAKE_CURRENT_SOURCE_DIR}" NAME)
 string(REPLACE " " "" current_dir "${current_dir}")
@@ -15,40 +15,50 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-file(GLOB subdirectories LIST_DIRECTORIES true "${CMAKE_CURRENT_SOURCE_DIR}/*")
+function(add_subDirs)
+    message("function(add_subDirs)")
 
-set(file_to_find "CMakeLists.txt")
-foreach(subdir ${subdirectories})
-    if(IS_DIRECTORY "${subdir}")
-        # message("Found subdir: ${subdir}")
+    file(GLOB subdirectories LIST_DIRECTORIES true "${CMAKE_CURRENT_SOURCE_DIR}/*")
 
-        set(files)
+    set(file_to_find "CMakeLists.txt")
+    foreach(subdir ${subdirectories})
+        if(IS_DIRECTORY "${subdir}")
+            # message("Found subdir: ${subdir}")
 
-        file(GLOB files_in_directory LIST_FILES "${subdir}/*")
-        # message("files_in_directory: ${files_in_directory}")
+            set(files)
 
-        foreach(fin ${files_in_directory})
-            get_filename_component(file "${fin}" NAME ABSOLUTE)
-            list(APPEND files ${file})
-        endforeach()
+            file(GLOB files_in_directory LIST_FILES "${subdir}/*")
+            # message("files_in_directory: ${files_in_directory}")
 
-        list(FIND files "${file_to_find}" file_index)
+            foreach(fin ${files_in_directory})
+                get_filename_component(file "${fin}" NAME ABSOLUTE)
+                list(APPEND files ${file})
+            endforeach()
 
-        if(${file_index} EQUAL -1)
-            message("${file_to_find} not found in the directory: ${subdir}")
-        else()
-            message("${file_to_find} found in the directory: ${subdir}")
-            add_subdirectory("${subdir}")
+            list(FIND files "${file_to_find}" file_index)
+
+            if(${file_index} EQUAL -1)
+                message("${file_to_find} not found in the directory: ${subdir}")
+            else()
+                message("${file_to_find} found in the directory: ${subdir}")
+                add_subdirectory("${subdir}")
+            endif()
+
         endif()
+    endforeach()
 
-    endif()
-endforeach()
+endfunction()
 
-get_property(subdirectories DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY SUBDIRECTORIES)
+function(print_subDirs)
+    get_property(inited_subdirectories DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY SUBDIRECTORIES)
 
-message("\n Found subdirectory: \n")
-foreach(subdir ${subdirectories})
-    message("\t\t${subdir}")
-endforeach()
+    message("\n inited subdirectory: \n")
+    foreach(subdir ${inited_subdirectories})
+        message("\t\t${subdir}")
+    endforeach()
 
-message("\n\n")
+    message("\n\n")
+endfunction()
+
+add_subDirs()
+print_subDirs()
