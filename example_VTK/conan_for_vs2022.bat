@@ -16,9 +16,9 @@ if exist "%folderToCheck%" (
     echo "%folderToCheck%" not exist
 )
 
-conan profile detect --force
-conan install . --output-folder=./build_for_vs2022 --profile=default --build=missing -s build_type=Debug
-conan install . --output-folder=./build_for_vs2022 --profile=default --build=missing -s build_type=Release
+rem conan profile detect --force
+conan install . --output-folder=./build_for_vs2022 --profile=default --build=missing -s build_type=Debug -s compiler.cppstd=23
+conan install . --output-folder=./build_for_vs2022 --profile=default --build=missing -s build_type=Release -s compiler.cppstd=23
 cmake --preset conan-default
 
 cd ./build_for_vs2022
