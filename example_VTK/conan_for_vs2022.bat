@@ -23,7 +23,7 @@ cmake --preset conan-default
 
 cd ./build_for_vs2022
 cmake .. -G "Visual Studio 17 2022" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
-cmake --build .
+rem cmake --build .
 
 cd ..
 set "scriptPath=%~dp0"
